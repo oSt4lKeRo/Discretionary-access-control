@@ -4,14 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="07f27627-3d07-4c2f-8ef6-6ad9eb7ef047" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/Main.kt" afterDir="false" />
+    <list default="true" id="07f27627-3d07-4c2f-8ef6-6ad9eb7ef047" name="Changes" comment="Защита информации.&#10;Создание системы доступа к файлам.">
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,11 +62,30 @@
       <workItem from="1678971563106" duration="2381000" />
       <workItem from="1678973959028" duration="3812000" />
       <workItem from="1678979690940" duration="36000" />
-      <workItem from="1678987442737" duration="771000" />
+      <workItem from="1678987442737" duration="1156000" />
     </task>
+    <task id="LOCAL-00001" summary="Защита информации.&#10;Создание системы доступа к файлам.">
+      <created>1678988454830</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1678988454830</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Защита информации.&#10;Создание системы доступа к файлам.">
+      <created>1678988532551</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1678988532551</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Защита информации.&#10;Создание системы доступа к файлам." />
+    <option name="LAST_COMMIT_MESSAGE" value="Защита информации.&#10;Создание системы доступа к файлам." />
   </component>
 </project>
