@@ -1,0 +1,316 @@
+package org.example;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Main {
+
+
+	static class Obj {
+
+		int index;
+		ArrayList<Integer> mas;
+
+		Obj(int index, ArrayList<Integer> mas) {
+			this.mas = mas;
+			this.index = index;
+
+		}
+
+		Obj() {
+		}
+
+	}
+
+	public static class Access {
+
+		Obj obj;
+		boolean read_access;
+		boolean write_access;
+		boolean transfer_access;
+
+
+		public Access(Obj obj, boolean read_access, boolean write_access, boolean transfer_access) {
+
+			this.obj = obj;
+			this.read_access = read_access;
+			this.write_access = write_access;
+			this.transfer_access = transfer_access;
+
+		}
+
+	}
+
+
+	static class User {
+
+		String name;
+		ArrayList<Access> accessList = new ArrayList<>();
+
+		public User(String name) {
+
+			this.name = name;
+
+		}
+
+		User() {
+		}
+
+		void addAccess(Obj mas, boolean read_access, boolean write_access, boolean transfer_access) {
+
+			Access access = new Access(mas, read_access, write_access, transfer_access);
+			accessList.add(access);
+
+		}
+
+		boolean checkFile(int index){
+
+			for(int i = 0; i < accessList.size(); i++){
+
+				if(accessList.get(i).obj.index == i){
+					return true;
+				}
+
+			}
+			return false;
+		}
+
+		public void mat(){
+
+			System.out.println("Номер файла\t\tЧтение\tЗапись\tПередача");
+			for(int i = 0; i < accessList.size(); i++){
+
+				System.out.println(accessList.get(i).obj.index + "\t\t\t\t" + accessList.get(i).read_access + "\t" + accessList.get(i).write_access + "\t" + accessList.get(i).transfer_access);
+
+			}
+
+		}
+
+	}
+
+
+	public static void main(String[] args) {
+
+		ArrayList<User> masUser = new ArrayList<>();
+
+		ArrayList<Integer> file = new ArrayList<>();
+		ArrayList<Integer> file1 = new ArrayList<>();
+		ArrayList<Integer> file2 = new ArrayList<>();
+
+		Obj obj = new Obj(0, file);
+		Obj obj1 = new Obj(1, file1);
+		Obj obj2 = new Obj(2, file2);
+
+
+		for (int i = 0; i < 5; i++) {
+			file.add(i);
+			file1.add(i);
+			file2.add(i);
+		}
+
+		User admin = new User("admin");
+		admin.addAccess(obj, true, true, true);
+		admin.addAccess(obj1, true, true, true);
+		admin.addAccess(obj2, true, true, true);
+
+		User Maks = new User("maks");
+		Maks.addAccess(obj, true, false, false);
+		Maks.addAccess(obj2, true, true, false);
+
+		User Dima = new User("dima");
+		Dima.addAccess(obj1, true, true, true);
+
+		User women = new User("women");
+
+
+		masUser.add(admin);
+		masUser.add(Maks);
+		masUser.add(Dima);
+
+
+		User user = new User();
+		int index = 0;
+		int status = 0;
+
+		Scanner scanner = new Scanner(System.in);
+
+
+		////////////////////////////////Авторизация
+		if (status == 0) {
+
+			String result;
+			System.out.print("Введите логин пользователя: ");
+			result = scanner.nextLine();
+			System.out.println();
+
+			for (User i : masUser) {
+				if (i.name.equals(result)) {
+					status = 1;
+					user = i;
+					System.out.println("Вы успешно зашли в аккаунт: " + user.name);
+					break;
+				}
+			}
+		}
+
+		if (status == 1) {
+			user.mat();
+			System.out.println("Выберите нужный файл");
+
+			for (int i = 0; i < user.accessList.size(); i++) {
+
+				System.out.println(user.accessList.get(i).obj.index + ")файл №" + user.accessList.get(i).obj.index);
+
+			}
+
+			Scanner scanner1 = new Scanner(System.in);
+			int result = scanner1.nextInt();
+
+			for (int i = 0; i < user.accessList.size(); i++) {
+
+				if (user.accessList.get(i).obj.index == result) {
+					index = i;
+					status = 2;
+					break;
+				}
+
+			}
+		}
+
+		if (status == 2) {
+
+			while (true) {
+				if (user.accessList.get(index).read_access) {
+					System.out.println("1) Прочитать файл");
+				}
+				if (user.accessList.get(index).write_access) {
+					System.out.println("2) Записать в файл");
+				}
+				if (user.accessList.get(index).transfer_access) {
+					System.out.println("3) Передать право");
+				}
+				System.out.println("4) Выйти из аккаунта");
+				System.out.println("0) Прекратить сессию");
+				System.out.print("Ваш выбор: ");
+				Scanner scanner3 = new Scanner(System.in);
+				int result = scanner3.nextInt();
+
+				if (result == 1) {
+
+					if (user.accessList.get(index).read_access) {
+						printFile(file);
+					} else {
+						System.out.println("У вас нет на это прав");
+					}
+
+				} else if (result == 2) {
+
+					if (user.accessList.get(index).read_access) {
+						if (user.accessList.get(index).write_access) {
+
+							System.out.println("Введите новое число: ");
+							Scanner scanner1 = new Scanner(System.in);
+							result = scanner1.nextInt();
+							writeFile(file, result);
+						} else {
+							System.out.println("У вас нет на это прав");
+						}
+					} else {
+						System.out.println("У вас нет на это прав");
+					}
+
+
+				} else if (result == 3) {
+
+					if (user.accessList.get(index).transfer_access) {
+
+						User user_target = null;
+
+						System.out.println("Введите логин пользователя: ");
+						System.out.println("Чтобы прекратить поиск нажмите: 0");
+						System.out.print("Ваш ответ: ");
+						Scanner scanner2 = new Scanner(System.in);
+						String target_user_name = scanner2.nextLine();
+						System.out.println();
+
+
+						if (!target_user_name.equals("0")) {
+							for (User i : masUser) {
+								if (i.name.equals(target_user_name)) {
+									user_target = i;
+									System.out.println("Пользователь " + user_target.name + " найден");
+									break;
+								}
+							}
+						} else {
+							break;
+						}
+
+						if (user_target != null && user_target != user) {
+
+							if (user_target.checkFile(index)) {
+
+								if (user.accessList.get(index).read_access && !user_target.accessList.get(index).read_access) {
+									System.out.println("1) Передать право на чтение");
+								}
+								if (user.accessList.get(index).write_access && !user_target.accessList.get(index).write_access) {
+									System.out.println("2) Передать право на запись");
+								}
+								if (user.accessList.get(index).transfer_access && !user_target.accessList.get(index).transfer_access) {
+									System.out.println("3) Передать право на передачу прав");
+								}
+								System.out.println("Для выхода введите: 0");
+								System.out.print("Ваш выбор: ");
+								result = scanner.nextInt();
+
+								if (result == 1) {
+
+									user.accessList.get(index).read_access = false;
+									user_target.accessList.get(index).read_access = true;
+									break;
+
+								} else if (result == 2) {
+
+									user.accessList.get(index).write_access = false;
+									user_target.accessList.get(index).write_access = true;
+									break;
+
+								} else if (result == 3) {
+
+									user.accessList.get(index).transfer_access = false;
+									user_target.accessList.get(index).transfer_access = true;
+									break;
+
+								} else if (result == 0) {
+									break;
+								}
+
+							}else {
+								System.out.println("У пользователя нет доступа к файлу");
+							}
+						}
+					}
+				} else if (result == 4) {
+					user = null;
+					status = 0;
+					break;
+				} else if (result == 0) {
+					return;
+				}
+			}
+		}
+	}
+
+
+
+	static void printFile(ArrayList<Integer> file) {
+		for (int i : file) {
+			System.out.print(i + "\t");
+		}
+		System.out.println("\n");
+	}
+
+	static void writeFile(ArrayList<Integer> file, int elem) {
+		file.add(elem);
+	}
+}
